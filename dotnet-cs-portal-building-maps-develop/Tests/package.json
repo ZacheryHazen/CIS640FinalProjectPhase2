@@ -1,0 +1,31 @@
+{
+  "name": "tests",
+  "version": "1.11.0",
+  "author": "CS Portal Team",
+  "description": "Tests for the Computer Science Portal project.",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "jest": "^27.5.1",
+    "jest-editor-support": "^30.0.2",
+    "jest-junit": "^13.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "rootDir": "./",
+    "setupFiles": [
+      "<rootDir>/setup-jest.js"
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
+  "jest-junit": {
+    "outputDirectory": "<rootDir>/TestResults/jest",
+    "outputName": "junit.xml"
+  }
+}

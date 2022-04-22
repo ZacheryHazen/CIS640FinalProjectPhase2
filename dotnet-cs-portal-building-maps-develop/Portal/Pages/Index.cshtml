@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">CS Portal App</h1>
+    @if(User.Identity.Name is null) {
+        <p class="lead">Welcome to the Computer Science Department Student Portal.   You need to 
+          <a asp-controller="Auth" asp-action="Login">Login</a> with your 
+          K-State eid and password to access the services it provides.
+        </p>
+        <img src="/img/Willie.png" width="50%"/>
+    } else {
+        <p class="lead">Welcome to the Computer Science Department Student Portal <b>@User.Identity.Name</b>!</p>
+        <p>The following apps are available to you:</p>
+
+        <div class="row text-left">
+        
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">CS Pre-professional Program</h5>
+                        <p class="card-text">
+                            This section provides information and tools for students in the CS Pre-professional program,
+                            including:                            
+                        </p>
+                        <ul>
+                            <li>Full requirements for the pre-professional program</li>
+                            <li>Tools for reporting and tracking event attendance</li>
+                            <li>The application form for the professional program</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>

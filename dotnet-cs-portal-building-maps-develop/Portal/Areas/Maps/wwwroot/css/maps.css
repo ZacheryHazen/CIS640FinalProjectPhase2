@@ -1,0 +1,54 @@
+﻿/*
+* Licensed under the MIT License, see LICENSE file for details.
+*/
+
+/* CSS file for maps-specific CSS. Please try to work with the site-wide 
+   CSS first, but use this if we need to override something. */
+
+/* Ability to hide elements */
+.hidden {
+   display: none !important;
+}
+
+/* Index Page Building List */
+.building-card {
+   padding: 15px;
+}
+
+.building-card a {
+   color: #212529;
+}
+
+.building-card a:hover {
+   text-decoration: none;
+}
+
+.building-card .card {
+   box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 5%);
+}
+
+.building-card .card:hover {
+   transition: box-shadow 10s ease-in-out 0;
+   box-shadow: 0 0.25rem 2em rgb(0 0 0 / 20%);
+}
+
+@media (max-width: 767.98px) {
+   .building-card {
+      padding: 5px 15px;
+   }
+}
+
+/* Details Page */
+.building-panel {
+   background-color: lightgray;
+}
+
+.building-panel h1 {
+   font-size: 2.0rem;
+   font-weight: 300;
+   line-height: 1.2;
+}
+
+.building-map img {
+   width: 100%;
+}

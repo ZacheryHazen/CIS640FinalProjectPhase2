@@ -1,0 +1,18 @@
+@page
+<!-- Licensed under the MIT License, see LICENSE file for details. -->
+@model Admin
+@{
+    ViewData["Title"] = "Edit Maps";
+    Layout = "_MapsLayout.cshtml";
+}
+
+<div class="text-center">
+    <form enctype="multipart/form-data" method="Post">
+        <h1 class="display-4">Edit Maps</h1>
+        <p class="lead">Select a building blueprint to upload</p>
+        <br><br>
+        <label for="myfile">Select a building blueprint:</label>
+        <input type="file" id="myfile" name="myfile" accept=".pdf"><br><br>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>

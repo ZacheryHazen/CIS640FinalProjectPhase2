@@ -1,0 +1,51 @@
+﻿@page "{slug}"
+<!-- Licensed under the MIT License, see LICENSE file for details. -->
+@model DetailsModel
+@{
+    ViewData["Title"] = @Model.Building.BuildingName + " Map";
+    Layout = "_MapsLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9 building-map">
+        <img src="@Model.Building.GetFloorImageUrl(Model.CurrentFloor)" 
+            alt="The first floor of @Model.Building.BuildingName."/>
+    </div>
+    <div class="col-md-3 building-panel">
+        <h1 class="my-3">@Model.Building.BuildingName</h1>
+        <hr>
+        <form class="my-3 room-search-form">
+            <div class="form-row">
+                <input name="search" class="form-control" type="search"
+                    autofocus placeholder="Search for a room" 
+                    aria-label="Search for a room">
+            </div>
+            <hr>
+            <div class="form-row">
+                <select class="form-control my-2">
+                    @foreach (var item in Model.Building.Floors) 
+                    {  
+                        if (item.FloorNumber == Model.CurrentFloor) {
+                            <option id="@item.FloorNumber" selected>@item.FloorString</option>
+                        }
+                        else {
+                            <option id="@item.FloorNumber">@item.FloorString</option>
+                        }
+                    }
+                </select>
+            </div>
+            <hr>
+            @foreach (var item in Model.TagList)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" 
+                        id="@item.TagName" name="@item.TagName"
+                        data-tag-name="@item.TagName">
+                    <label class="form-check-label" for="@item.TagName">
+                        @item.TagName
+                    </label>
+                </div>
+            }
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿<!-- Licensed under the MIT License, see LICENSE file for details. -->
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section AreaHead
+{
+    <link rel="stylesheet" href="~/css/maps.css" />
+}
+
+@section AreaNav
+{
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
+            <div class="container">
+                <a class="navbar-brand" href="/Maps">
+                    <!--<img src="/img/portal.png" height="24"/>-->
+                    Building Maps
+                </a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Maps">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Maps/Feedback">Feedback</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Maps/Admin">Edit Maps (Admin)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+}
+
+@RenderBody()
+
+@section Scripts
+{
+    <script src="~/js/maps.js" asp-append-version="true"></script>
+}

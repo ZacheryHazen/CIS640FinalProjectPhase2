@@ -1,0 +1,46 @@
+﻿@page
+<!-- Licensed under the MIT License, see LICENSE file for details. -->
+@model IndexModel
+@{
+    ViewData["Title"] = "Building Maps";
+    Layout = "_MapsLayout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Building Maps</h1>
+    <!-- Search form -->
+    <form method="post" class="my-3 building-search-form">
+        <div class="form-row">
+            <div class="col">
+                <input name="search" class="form-control" type="search"
+                    autofocus placeholder="Search for a building or room" 
+                    aria-label="Search for a building or room">
+            </div>
+            <div class="col-auto hidden">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+    <!-- List of building cards -->
+    <div class="row">
+        @foreach (var item in Model.BuildingList)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 building-card"
+                data-building-name="@item.BuildingName"
+                data-building-abrev="@item.BuildingAbrev">
+                <a asp-controller="Maps" 
+                    asp-action="Details" 
+                    asp-route-id="@item.Slug">
+                    <div class="card">
+                        <img src="@item.GetFloorImageUrl(1)"
+                            class="card-img-top"
+                            alt="The first floor of @item.BuildingName."/>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.BuildingName</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

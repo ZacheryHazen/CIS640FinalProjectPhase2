@@ -1,0 +1,72 @@
+stages:
+  - build
+  - test
+
+workflow:
+  rules:
+    # Don't run if the commit message contains "-draft"
+    - if: $CI_COMMIT_MESSAGE =~ /-draft$/
+      when: never
+    # Run on merge requests
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    # Avoid running duplicate jobs for a commit that is the subject of a merge request
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    # Run if this is a commit to any branch
+    - if: $CI_COMMIT_BRANCH
+    # Run if this is a tag
+    - if: $CI_COMMIT_TAG
+
+Build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:5.0
+  needs: []
+  before_script:
+    - echo "Installing dotnet tools"
+    - 'export PATH="$PATH:/root/.dotnet/tools"'
+    - 'dotnet tool install --global dotnet-ef'
+    - 'dotnet ef database update --project ./Portal --verbose'
+  script:
+    - 'echo "Building CS Portal"'
+    - 'dotnet build ./Portal'
+
+CSharpUnitTest:
+  stage: test
+  image: mcr.microsoft.com/dotnet/sdk:5.0
+  needs: ["Build"]
+  script:
+    - 'echo "Unit Testing CS Portal C#"'
+    - 'dotnet test ./Tests --logger:"junit;MethodFormat=Class;FailureBodyFormat=Verbose" --collect:"XPlat Code Coverage"'
+    # Cross Platform Code Coverage drops the report in a folder with a GUID, so we have to find it and move it in order to use it as a GitLab Artifact
+    - 'find ./Tests/TestResults -name coverage.cobertura.xml | xargs cp -t ./Tests/TestResults'
+  after_script:
+    # Clean up the folder named with a GUID
+    - 'rm -r ./Tests/TestResults/*/'
+  artifacts:
+    when: always
+    paths:
+      - ./Tests/TestResults/
+    reports:
+      junit:
+        - ./Tests/TestResults/TestResults.xml
+      cobertura:
+        - ./Tests/TestResults/coverage.cobertura.xml
+
+JSUnitTest:
+  stage: test
+  image: node:16
+  needs: ["Build"]
+  script:
+    - 'echo "Unit Testing CS Portal JavaScript"'
+    - 'cd Tests'
+    - 'npm install'
+    - 'npm test'
+  after_script:
+    - 'cd ..'
+  artifacts:
+    when: always
+    paths:
+      - ./Tests/TestResults/jest/
+    reports:
+      junit:
+        - ./Tests/TestResults/jest/junit.xml
