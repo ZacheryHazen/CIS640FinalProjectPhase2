@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Ksu.Cs.Portal.Areas.Maps.Models;
 
-namespace _640Tests;
+
 
 public class ExampleTest
 {
@@ -15,7 +15,7 @@ public class ExampleTest
     [Test]
     public void EnsureBuildingIdCanBeAssigned()
     {
-        testBuilding.Id = 5;
-        Assert.AreEqual(5, testBuilding.Id);
+        testBuilding.Id = 6;
+        Assert.AreEqual(6, testBuilding.Id);
     }
 }
